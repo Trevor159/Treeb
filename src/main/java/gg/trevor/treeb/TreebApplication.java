@@ -6,12 +6,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class HelloDiscordApplication
+public class TreebApplication
 {
 
 	public static void main(String[] args)
 	{
-		SpringApplication.run(HelloDiscordApplication.class, args);
+		SpringApplication.run(TreebApplication.class, args);
 	}
 
 }

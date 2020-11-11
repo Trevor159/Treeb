@@ -87,7 +87,7 @@ public class Bot
 			.setCoOwnerIds(BOT_COOWNERS)
 			.setEmojis("\uD83D\uDE03", "\uD83D\uDE2E", "\uD83D\uDE26")
 			.setPrefix("..")
-			.addCommands(commands.toArray(new Command[commands.size()]))
+			.addCommands(commands.toArray(new Command[0]))
 			.setGuildSettingsManager(settings)
 			.build();
 
