@@ -23,8 +23,8 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 COPY --from=ffmpeg /ffmpeg /app/util
 COPY --from=ffmpeg /ffprobe /app/util
 COPY --from=yt-dl /usr/local/bin/youtube-dlc /app/util
-RUN mkdir downloads
-
+RUN mkdir /downloads
+ENV PATH_DOWNLOADS /downloads
 ENV PATH_FFMPEG util/ffmpeg
 ENV PATH_FFPROBE util/ffmpeg
 ENV PATH_YOUTUBEDL util/youtube-dlc
