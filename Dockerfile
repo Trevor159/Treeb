@@ -26,4 +26,5 @@ ENV PATH_DOWNLOADS /downloads
 ENV PATH_FFMPEG /util/ffmpeg
 ENV PATH_FFPROBE /util/ffmpeg
 ENV PATH_YOUTUBEDL /util/youtube-dlc
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -cp app:app/lib/* gg.trevor.treeb.TreebApplication"]
