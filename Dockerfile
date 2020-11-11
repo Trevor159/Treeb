@@ -13,7 +13,7 @@ FROM mwader/static-ffmpeg:4.3.1-2 as ffmpeg
 
 FROM mikenye/youtube-dl:2020.10.25_ytdlc as yt-dl
 
-FROM openjdk:8-jre-alpine
+FROM adoptopenjdk/openjdk11:alpine
 EXPOSE 8080
 #VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency
