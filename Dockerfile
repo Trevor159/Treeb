@@ -24,4 +24,8 @@ COPY --from=ffmpeg /ffmpeg /app/util
 COPY --from=ffmpeg /ffprobe /app/util
 COPY --from=yt-dl /usr/local/bin/youtube-dlc /app/util
 RUN mkdir downloads
+
+ENV PATH_FFMPEG util/ffmpeg
+ENV PATH_FFPROBE util/ffmpeg
+ENV PATH_YOUTUBEDL util/youtube-dlc
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -cp app:app/lib/* gg.trevor.treeb.TreebApplication"]
