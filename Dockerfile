@@ -6,7 +6,7 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw clean install -U -DskipTests
+RUN chmod +x mvnw && ./mvnw clean install -U -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM mwader/static-ffmpeg:4.3.1-2 as ffmpeg
@@ -23,5 +23,5 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 COPY --from=ffmpeg /ffmpeg /app/util
 COPY --from=ffmpeg /ffprobe /app/util
 COPY --from=ty-dl /usr/local/bin/youtube-dlc /app/util
-RUN curl -o util/ffmpeg http://X.X.X.X/path/to/file/file.txt
+RUN mkdir downloads
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -cp app:app/lib/* gg.trevor.treeb.TreebApplication"]
