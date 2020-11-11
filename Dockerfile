@@ -20,12 +20,12 @@ ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-COPY --from=ffmpeg /ffmpeg /app/util
-COPY --from=ffmpeg /ffprobe /app/util
-COPY --from=yt-dl /usr/local/bin/youtube-dlc /app/util
+COPY --from=ffmpeg /ffmpeg /util
+COPY --from=ffmpeg /ffprobe /util
+COPY --from=yt-dl /usr/local/bin/youtube-dlc /util
 RUN mkdir /downloads
 ENV PATH_DOWNLOADS /downloads
-ENV PATH_FFMPEG util/ffmpeg
-ENV PATH_FFPROBE util/ffmpeg
-ENV PATH_YOUTUBEDL util/youtube-dlc
+ENV PATH_FFMPEG /util/ffmpeg
+ENV PATH_FFPROBE /util/ffmpeg
+ENV PATH_YOUTUBEDL /util/youtube-dlc
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -cp app:app/lib/* gg.trevor.treeb.TreebApplication"]
