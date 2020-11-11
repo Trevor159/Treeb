@@ -14,8 +14,6 @@ FROM mwader/static-ffmpeg:4.3.1-2 as ffmpeg
 FROM mikenye/youtube-dl:2020.10.25_ytdlc as yt-dl
 
 FROM adoptopenjdk/openjdk11:alpine
-EXPOSE 8080
-#VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF

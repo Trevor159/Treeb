@@ -6,6 +6,7 @@ import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import gg.trevor.treeb.Util;
+import gg.trevor.treeb.bot.audio.AudioHandler;
 import gg.trevor.treeb.bot.settings.SettingsManager;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -62,6 +63,9 @@ public class Bot
 
 		List<Command> commands = new ArrayList<>();
 		List<Object> eventClasses = new ArrayList<>();
+		List<Class<?>> firstClasses = new ArrayList<>();
+
+		firstClasses.add(AudioHandler.class);
 
 		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
 
@@ -77,7 +81,7 @@ public class Bot
 //		EventWaiter eventWaiter = (EventWaiter) instantiateClass(EventWaiter.class, cargs);
 		eventClasses.add(eventWaiter);
 
-		scanAndLoadClasses(commands, eventClasses);
+		scanAndLoadClasses(commands, eventClasses, firstClasses);
 
 		SettingsManager settings = (SettingsManager) instantiateClass(SettingsManager.class);
 
@@ -101,17 +105,25 @@ public class Bot
 			.build();
 	}
 
-	private void scanAndLoadClasses(List<Command> commands, List<Object> eventClasses) throws IOException
+	private void scanAndLoadClasses(List<Command> commands, List<Object> eventClasses, List<Class<?>> classes) throws IOException
 	{
 		ClassPath classPath = ClassPath.from(getClass().getClassLoader());
 
-		List<Class<?>> clazzes = classPath.getTopLevelClassesRecursive(BOT_PACKAGE).stream()
+		classPath.getTopLevelClassesRecursive(BOT_PACKAGE).stream()
 			.map(ClassPath.ClassInfo::load)
-			.collect(Collectors.toList());
+			.collect(Collectors.toList())
+			.forEach(x -> {
+				if (classes.contains(x))
+				{
+					return;
+				}
+
+				classes.add(x);
+			});
 
 //		clazzes.add(0, EventWaiter.class);
 
-		for (Class<?> clazz : clazzes)
+		for (Class<?> clazz : classes)
 		{
 			if (Modifier.isAbstract(clazz.getModifiers()))
 			{
