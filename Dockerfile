@@ -20,9 +20,9 @@ ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-COPY --from=ffmpeg /ffmpeg /util
-COPY --from=ffmpeg /ffprobe /util
-COPY --from=yt-dl /usr/local/bin/youtube-dlc /util
+COPY --from=ffmpeg /ffmpeg /util/ffmpeg
+COPY --from=ffmpeg /ffprobe /util/ffprobe
+COPY --from=yt-dl /usr/local/bin/youtube-dlc /util/youtube-dlc
 RUN mkdir /downloads
 ENV PATH_DOWNLOADS /downloads
 ENV PATH_FFMPEG /util/ffmpeg
