@@ -22,6 +22,6 @@ COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 COPY --from=ffmpeg /ffmpeg /app/util
 COPY --from=ffmpeg /ffprobe /app/util
-COPY --from=ty-dl /usr/local/bin/youtube-dlc /app/util
+COPY --from=yt-dl /usr/local/bin/youtube-dlc /app/util
 RUN mkdir downloads
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -cp app:app/lib/* gg.trevor.treeb.TreebApplication"]
